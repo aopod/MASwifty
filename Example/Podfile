@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MASwifty_Example' do
+  pod 'MASwifty', :path => '../'
+
+  target 'MASwifty_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
