@@ -68,7 +68,12 @@ public extension MASConstraint {
     
     @discardableResult
     func priority(_ priority: LayoutPriority) -> MASConstraint {
-        let value = MASLayoutPriority.init(rawValue: priority.rawValue)
+        return self.priority(priority.rawValue)
+    }
+    
+    @discardableResult
+    func priority(_ priority: Float) -> MASConstraint {
+        let value = MASLayoutPriority(rawValue: priority)
         self.priority()(value)
         return self
     }
