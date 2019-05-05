@@ -16,13 +16,3 @@ public struct ConstraintLayout<T> {
         self.target = target
     }
 }
-
-internal func generateConstraints(_ function: @escaping (((MASConstraintMaker?) -> Void)?) -> [Any]?, closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-    let constraints = function { (make) in
-        guard let make = make else {
-            return
-        }
-        closure(make)
-        } as? [MASConstraint]
-    return constraints ?? []
-}

@@ -18,24 +18,39 @@ public extension ConstraintViewArray where Element: ConstraintView {
 public extension ConstraintLayout where T == Array<UIView> {
     
     @discardableResult
-    func makeConstraints(_ closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-        let function = (target as NSArray).mas_makeConstraints
-        let constraints = generateConstraints(function, closure: closure)
-        return constraints
+    func makeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+        let target = self.target as NSArray
+        let constraints = target.mas_makeConstraints { (make) in
+            guard let make = make else {
+                return
+            }
+            closure(make)
+        } as? [MASConstraint]
+        return constraints ?? []
     }
     
     @discardableResult
-    func updateConstraints(_ closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-        let function = (target as NSArray).mas_updateConstraints
-        let constraints = generateConstraints(function, closure: closure)
-        return constraints
+    func updateConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+        let target = self.target as NSArray
+        let constraints = target.mas_updateConstraints { (make) in
+            guard let make = make else {
+                return
+            }
+            closure(make)
+        } as? [MASConstraint]
+        return constraints ?? []
     }
     
     @discardableResult
-    func remakeConstraints(_ closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-        let function = (target as NSArray).mas_remakeConstraints
-        let constraints = generateConstraints(function, closure: closure)
-        return constraints
+    func remakeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+        let target = self.target as NSArray
+        let constraints = target.mas_remakeConstraints { (make) in
+            guard let make = make else {
+                return
+            }
+            closure(make)
+        } as? [MASConstraint]
+        return constraints ?? []
     }
     
     func distribute(along axis: MASAxisType, fixedSpacing: Float, leadSpacing: Float, tailSpacing: Float) {

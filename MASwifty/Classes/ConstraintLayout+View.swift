@@ -18,21 +18,36 @@ public extension ConstraintView {
 public extension ConstraintLayout where T: ConstraintView {
     
     @discardableResult
-    func makeConstraints(_ closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-        let constraints = generateConstraints(target.mas_makeConstraints, closure: closure)
-        return constraints
+    func makeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+        let constraints = target.mas_makeConstraints { (make) in
+            guard let make = make else {
+                return
+            }
+            closure(make)
+            } as? [MASConstraint]
+        return constraints ?? []
     }
     
     @discardableResult
-    func updateConstraints(_ closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-        let constraints = generateConstraints(target.mas_updateConstraints, closure: closure)
-        return constraints
+    func updateConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+        let constraints = target.mas_updateConstraints { (make) in
+            guard let make = make else {
+                return
+            }
+            closure(make)
+        } as? [MASConstraint]
+        return constraints ?? []
     }
     
     @discardableResult
-    func remakeConstraints(_ closure: @escaping (MASConstraintMaker) -> Void) -> [MASConstraint] {
-        let constraints = generateConstraints(target.mas_remakeConstraints, closure: closure)
-        return constraints
+    func remakeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+        let constraints = target.mas_remakeConstraints { (make) in
+            guard let make = make else {
+                return
+            }
+            closure(make)
+        } as? [MASConstraint]
+        return constraints ?? []
     }
     
     @discardableResult
