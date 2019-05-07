@@ -17,8 +17,9 @@ public extension MASConstraint {
     }
     
     @discardableResult
-    func inset(_ inset: Float) -> MASConstraint {
-        self.inset()(CGFloat(inset))
+    func inset<T: MASConstraintValue>(_ inset: T) -> MASConstraint {
+        let value = convertValueToCGFloat(from: inset)
+        self.inset()(value)
         return self
     }
     
@@ -35,8 +36,9 @@ public extension MASConstraint {
     }
     
     @discardableResult
-    func offset(_ offset: Float) -> MASConstraint {
-        self.offset()(CGFloat(offset))
+    func offset<T: MASConstraintValue>(_ offset: T) -> MASConstraint {
+        let value = convertValueToCGFloat(from: offset)
+        self.offset()(value)
         return self
     }
     
@@ -47,14 +49,16 @@ public extension MASConstraint {
     }
     
     @discardableResult
-    func multipliedBy(_ multiplier: Float) -> MASConstraint {
-        self.multipliedBy()(CGFloat(multiplier))
+    func multipliedBy<T: MASConstraintValue>(_ multiplier: T) -> MASConstraint {
+        let value = convertValueToCGFloat(from: multiplier)
+        self.multipliedBy()(value)
         return self
     }
     
     @discardableResult
-    func dividedBy(_ divider: Float) -> MASConstraint {
-        self.dividedBy()(CGFloat(divider))
+    func dividedBy<T: MASConstraintValue>(_ divider: T) -> MASConstraint {
+        let value = convertValueToCGFloat(from: divider)
+        self.dividedBy()(value)
         return self
     }
     
@@ -72,9 +76,10 @@ public extension MASConstraint {
     }
     
     @discardableResult
-    func priority(_ priority: Float) -> MASConstraint {
-        let value = MASLayoutPriority(rawValue: priority)
-        self.priority()(value)
+    func priority<T: MASConstraintValue>(_ priority: T) -> MASConstraint {
+        let value = convertValueToCGFloat(from: priority)
+        let priorityValue = MASLayoutPriority(rawValue: Float(value))
+        self.priority()(priorityValue)
         return self
     }
     
@@ -100,8 +105,14 @@ public extension MASConstraint {
 public extension MASConstraint {
     
     @discardableResult
-    func equalToSuperview(_ offset: Float = 0) -> MASConstraint {
-        return self.equalTo(offset)
+    func equalToSuperview() -> MASConstraint {
+        return self.equalTo(0)
+    }
+    
+    @discardableResult
+    func equalToSuperview<T: MASConstraintValue>(_ offset: T) -> MASConstraint {
+        let value = convertValueToCGFloat(from: offset)
+        return self.equalTo(value)
     }
 }
 
