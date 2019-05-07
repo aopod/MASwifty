@@ -17,6 +17,17 @@ public extension MASConstraint {
     }
     
     @discardableResult
+    func insets(_ insets: (top: MASConstraintValue, left: MASConstraintValue, bottom: MASConstraintValue, right: MASConstraintValue)) -> MASConstraint {
+        let topValue = convertValueToCGFloat(from: insets.top)
+        let leftValue = convertValueToCGFloat(from: insets.left)
+        let bottomValue = convertValueToCGFloat(from: insets.bottom)
+        let rightValue = convertValueToCGFloat(from: insets.right)
+        let insetsValue = UIEdgeInsets(top: topValue, left: leftValue, bottom: bottomValue, right: rightValue)
+        self.insets()(insetsValue)
+        return self
+    }
+    
+    @discardableResult
     func inset<T: MASConstraintValue>(_ inset: T) -> MASConstraint {
         let value = convertValueToCGFloat(from: inset)
         self.inset()(value)
@@ -30,8 +41,26 @@ public extension MASConstraint {
     }
     
     @discardableResult
+    func sizeOffset(_ offset: (width: MASConstraintValue, height: MASConstraintValue)) -> MASConstraint {
+        let widthValue = convertValueToCGFloat(from: offset.width)
+        let heightValue = convertValueToCGFloat(from: offset.height)
+        let offsetValue = CGSize(width: widthValue, height: heightValue)
+        self.sizeOffset()(offsetValue)
+        return self
+    }
+    
+    @discardableResult
     func centerOffset(_ offset: CGPoint) -> MASConstraint {
         self.centerOffset()(offset)
+        return self
+    }
+    
+    @discardableResult
+    func centerOffset(_ offset: (x: MASConstraintValue, y: MASConstraintValue)) -> MASConstraint {
+        let xValue = convertValueToCGFloat(from: offset.x)
+        let yValue = convertValueToCGFloat(from: offset.y)
+        let offsetValue = CGPoint(x: xValue, y: yValue)
+        self.centerOffset()(offsetValue)
         return self
     }
     
