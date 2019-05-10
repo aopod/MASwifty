@@ -18,38 +18,38 @@ public extension ConstraintViewArray where Element: ConstraintView {
 public extension ConstraintLayout where T == Array<UIView> {
     
     @discardableResult
-    func makeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+    func makeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [Constraint] {
         let target = self.target as NSArray
         let constraints = target.mas_makeConstraints { (make) in
             guard let make = make else {
                 return
             }
             closure(make)
-        } as? [MASConstraint]
+        } as? [Constraint]
         return constraints ?? []
     }
     
     @discardableResult
-    func updateConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+    func updateConstraints(_ closure: (MASConstraintMaker) -> Void) -> [Constraint] {
         let target = self.target as NSArray
         let constraints = target.mas_updateConstraints { (make) in
             guard let make = make else {
                 return
             }
             closure(make)
-        } as? [MASConstraint]
+        } as? [Constraint]
         return constraints ?? []
     }
     
     @discardableResult
-    func remakeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+    func remakeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [Constraint] {
         let target = self.target as NSArray
         let constraints = target.mas_remakeConstraints { (make) in
             guard let make = make else {
                 return
             }
             closure(make)
-        } as? [MASConstraint]
+        } as? [Constraint]
         return constraints ?? []
     }
     

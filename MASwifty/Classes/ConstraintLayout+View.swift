@@ -18,35 +18,38 @@ public extension ConstraintView {
 public extension ConstraintLayout where T: ConstraintView {
     
     @discardableResult
-    func makeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+    func makeConstraints(_ closure: (MASwiftyConstraintMaker) -> Void) -> [Constraint] {
         let constraints = target.mas_makeConstraints { (make) in
             guard let make = make else {
                 return
             }
-            closure(make)
-            } as? [MASConstraint]
+            let maker = MASwiftyConstraintMaker(make)
+            closure(maker)
+        } as? [Constraint]
         return constraints ?? []
     }
     
     @discardableResult
-    func updateConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+    func updateConstraints(_ closure: (MASwiftyConstraintMaker) -> Void) -> [Constraint] {
         let constraints = target.mas_updateConstraints { (make) in
             guard let make = make else {
                 return
             }
-            closure(make)
-        } as? [MASConstraint]
+            let maker = MASwiftyConstraintMaker(make)
+            closure(maker)
+        } as? [Constraint]
         return constraints ?? []
     }
     
     @discardableResult
-    func remakeConstraints(_ closure: (MASConstraintMaker) -> Void) -> [MASConstraint] {
+    func remakeConstraints(_ closure: (MASwiftyConstraintMaker) -> Void) -> [Constraint] {
         let constraints = target.mas_remakeConstraints { (make) in
             guard let make = make else {
                 return
             }
-            closure(make)
-        } as? [MASConstraint]
+            let maker = MASwiftyConstraintMaker(make)
+            closure(maker)
+        } as? [Constraint]
         return constraints ?? []
     }
     
@@ -115,6 +118,11 @@ public extension ConstraintLayout where T: ConstraintView {
     
     var baseLine: MASViewAttribute {
         return target.mas_baseline
+    }
+    
+    @discardableResult
+    func attribute(_ attribute: NSLayoutConstraint.Attribute) -> MASViewAttribute {
+        return target.mas_attribute(attribute)!
     }
 }
 

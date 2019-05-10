@@ -11,3 +11,4 @@ import UIKit
 public typealias ConstraintView = UIView
 public typealias ConstraintViewController = UIViewController
 public typealias ConstraintViewArray = Array
+public typealias Constraint = MASwiftyConstraint
