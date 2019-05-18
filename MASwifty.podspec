@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MASwifty'
-  s.version          = '0.1.1'
+  s.version          = '1.0.0'
   s.summary          = 'Swifty Masonry'
 
   s.description      = <<-DESC
@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'MASwifty/Classes/**/*'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
   s.dependency 'Masonry'
 end
